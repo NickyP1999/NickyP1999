@@ -30,17 +30,29 @@ print(f"  Games:        {GAMES}")
 print("-" * 45)
 print(f"  50% WR -> {GAMES * 0.5:.0f}W / {GAMES * 0.5:.0f}L  |  Net RR: {net_50:+.0f}")
 print(f"  60% WR -> {GAMES * 0.6:.0f}W / {GAMES * 0.4:.0f}L  |  Net RR: {net_60:+.0f}")
-print("-" * 45)
+print("-" * 50)
 print(f"  Extra RR from 50% -> 60%:  +{difference:.0f} RR over {GAMES} games")
 print(f"  That's +{difference / GAMES:.1f} RR per game on average")
 print(f"  (~{difference / 100:.0f} rank-ups more, at 100 RR per rank)")
-print("=" * 45)
+if net_50 != 0:
+    pct = (difference / abs(net_50)) * 100
+    print(f"  % more elo gained: {pct:.0f}%")
+else:
+    print(f"  % more elo gained: infinite (50% WR nets 0 RR)")
+print("=" * 50)
 
 # Also show a range of common RR values
 print("\n  Sensitivity table (per 100 games):")
-print(f"  {'Win RR':>7} | {'Loss RR':>8} | {'Net @50%':>9} | {'Net @60%':>9} | {'Diff':>7}")
-print("  " + "-" * 50)
+print(f"  {'Win RR':>7} | {'Loss RR':>8} | {'Net @50%':>9} | {'Net @60%':>9} | {'Diff':>7} | {'% More':>8}")
+print("  " + "-" * 62)
 for rr_w, rr_l in [(20, 20), (21, 19), (22, 18), (25, 20), (20, 25)]:
     n50 = net_rr(0.50, 100, rr_w, rr_l)
     n60 = net_rr(0.60, 100, rr_w, rr_l)
-    print(f"  {'+' + str(rr_w):>7} | {'-' + str(rr_l):>8} | {n50:>+9.0f} | {n60:>+9.0f} | {n60 - n50:>+7.0f}")
+    diff = n60 - n50
+    if n50 > 0:
+        pct = f"{(diff / n50) * 100:.0f}%"
+    elif n50 == 0:
+        pct = "inf"
+    else:
+        pct = "N/A"
+    print(f"  {'+' + str(rr_w):>7} | {'-' + str(rr_l):>8} | {n50:>+9.0f} | {n60:>+9.0f} | {diff:>+7.0f} | {pct:>8}")
