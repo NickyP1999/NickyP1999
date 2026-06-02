@@ -1,0 +1,111 @@
+/* =========================================================================
+ *  NC STREAM OVERLAY  —  sleek frames + now-playing, matched to the logo.
+ *  Transparent background so it sits over gameplay in OBS.
+ * ========================================================================= */
+
+@font-face {
+  font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("../fonts/anton.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Oswald"; font-style: normal; font-weight: 500 700; font-display: swap;
+  src: url("../fonts/oswald.woff2") format("woff2");
+}
+
+:root {
+  --accent: #c01122;
+  --ink:    #fbfbfb;
+  --black:  #050507;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 1920px; height: 1080px;
+  background: transparent;            /* IMPORTANT for OBS */
+  overflow: hidden;
+  font-family: "Oswald", "Segoe UI", sans-serif;
+}
+
+/* ---- brand logo (top-left) ------------------------------------------ */
+.brand-logo {
+  position: absolute;
+  top: 30px; left: 36px;
+  width: 78px; height: 78px;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+}
+
+/* ---- generic frame (handcam / keyboard) ----------------------------- */
+.frame {
+  position: absolute;
+  border: 2px solid rgba(255,255,255,.14);
+  box-shadow: 0 8px 30px rgba(0,0,0,.45);
+}
+/* red corner brackets, top-left + bottom-right */
+.frame::before, .frame::after {
+  content: ""; position: absolute; width: 28px; height: 28px;
+}
+.frame::before {
+  top: -2px; left: -2px;
+  border-top: 3px solid var(--accent);
+  border-left: 3px solid var(--accent);
+}
+.frame::after {
+  bottom: -2px; right: -2px;
+  border-bottom: 3px solid var(--accent);
+  border-right: 3px solid var(--accent);
+}
+/* label tab sitting above the top border */
+.frame-tab {
+  position: absolute; top: -2px; left: 24px;
+  transform: translateY(-100%);
+  display: flex; align-items: center; gap: 8px;
+  background: var(--black);
+  color: var(--ink);
+  font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  padding: 5px 13px;
+  border: 2px solid rgba(255,255,255,.14);
+  border-bottom: none;
+}
+.frame-tab::before { content: "\25C6"; color: var(--accent); font-size: 9px; }
+
+.frame-cam  { right: 36px;  bottom: 36px; width: 440px; height: 248px; }
+.frame-keys { left: 36px;   bottom: 36px; width: 380px; height: 150px; }
+
+/* ---- Spotify now-playing (top-right) -------------------------------- */
+.np-card {
+  position: absolute;
+  top: 34px; right: 36px;
+  display: flex; align-items: center; gap: 13px;
+  width: 340px;
+  background: rgba(5,5,7,.82);
+  border: 2px solid rgba(255,255,255,.12);
+  border-left: 3px solid var(--accent);
+  padding: 11px 16px 11px 11px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  opacity: 0; transform: translateY(-8px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.np-card.live { opacity: 1; transform: translateY(0); }
+
+.np-art {
+  width: 56px; height: 56px; flex-shrink: 0;
+  object-fit: cover; background: #15151a;
+  border: 1px solid rgba(255,255,255,.1);
+}
+.np-info { min-width: 0; flex: 1; }
+.np-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: 3px; font-weight: 700;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 3px;
+}
+.np-label::before { content: "\25C6"; font-size: 8px; }
+.np-title {
+  font-size: 16px; font-weight: 700; color: var(--ink); text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.np-artist {
+  font-size: 12px; color: #b9b9c2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.np-bar { height: 3px; margin-top: 7px; background: rgba(255,255,255,.14); }
+.np-bar-fill { height: 100%; width: 0%; background: var(--accent); transition: width .5s linear; }

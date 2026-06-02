@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect Spotify — NC Overlay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <style>
+    @font-face { font-family:"Anton"; src:url("fonts/anton.woff2") format("woff2"); }
+    @font-face { font-family:"Oswald"; font-weight:500 700; src:url("fonts/oswald.woff2") format("woff2"); }
+    body { font-family:"Oswald",system-ui,sans-serif; background:#050507; color:#fbfbfb;
+           display:flex; min-height:100vh; align-items:center; justify-content:center; margin:0; }
+    .box { max-width:560px; padding:36px; background:#0d0d10; border:2px solid #ffffff14;
+           border-left:6px solid #c01122; box-shadow:14px 14px 0 #0008; }
+    h1 { font-family:"Anton",sans-serif; margin:0 0 6px; letter-spacing:1px; text-transform:uppercase; }
+    .diamond { color:#c01122; }
+    p { line-height:1.5; color:#c8c8d0; }
+    button { background:#c01122; color:#fff; border:0; padding:14px 24px; font-size:15px;
+             font-family:"Oswald",sans-serif; font-weight:700; letter-spacing:1px;
+             text-transform:uppercase; cursor:pointer; }
+    button:hover { background:#fff; color:#050507; }
+    code { background:#0008; padding:2px 6px; }
+    .ok { color:#1db954; font-weight:700; }     /* spotify green */
+    .err { color:#c01122; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1><span class="diamond">◆</span> Connect Spotify</h1>
+    <div id="content">Loading…</div>
+  </div>
+
+  <script src="js/overlay-config.js"></script>
+  <script>
+    const cfg = window.OVERLAY_CONFIG.spotify;
+    const AUTH = "https://accounts.spotify.com";
+    const SCOPES = "user-read-currently-playing user-read-playback-state";
+    const redirectUri = location.origin + location.pathname;
+    const content = document.getElementById("content");
+
+    const b64url = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf)))
+      .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    const sha256 = (s) => crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+    function randStr(n) {
+      const a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+      const r = crypto.getRandomValues(new Uint8Array(n));
+      return Array.from(r, (x) => a[x % a.length]).join("");
+    }
+
+    async function authorize() {
+      const verifier = randStr(64);
+      localStorage.setItem("sp_verifier", verifier);
+      const challenge = b64url(await sha256(verifier));
+      const p = new URLSearchParams({
+        client_id: cfg.clientId, response_type: "code", redirect_uri: redirectUri,
+        scope: SCOPES, code_challenge_method: "S256", code_challenge: challenge,
+      });
+      location = AUTH + "/authorize?" + p;
+    }
+
+    async function exchange(code) {
+      const verifier = localStorage.getItem("sp_verifier");
+      const body = new URLSearchParams({
+        grant_type: "authorization_code", code, redirect_uri: redirectUri,
+        client_id: cfg.clientId, code_verifier: verifier,
+      });
+      const res = await fetch(AUTH + "/api/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      });
+      const d = await res.json();
+      if (d.access_token) {
+        localStorage.setItem("sp_access", d.access_token);
+        localStorage.setItem("sp_refresh", d.refresh_token);
+        localStorage.setItem("sp_exp", String(Date.now() + d.expires_in * 1000));
+        return true;
+      }
+      console.error("[spotify] token exchange failed", d);
+      return false;
+    }
+
+    async function render() {
+      const params = new URLSearchParams(location.search);
+      const code = params.get("code");
+
+      if (code) {
+        content.textContent = "Finishing…";
+        const ok = await exchange(code);
+        history.replaceState(null, "", redirectUri);
+        content.innerHTML = ok
+          ? `<p class="ok">✓ Connected!</p><p>You can close this tab. Your overlay's
+             <code>overlay.html</code> will now show the track you're playing. The token
+             refreshes itself. If the overlay runs inside OBS, run this page once inside
+             OBS too (source → Interact) so OBS stores its own login.</p>`
+          : `<p class="err">Something went wrong — check the browser console and that your
+             Redirect URI matches exactly.</p>`;
+        return;
+      }
+
+      if (!cfg.clientId || cfg.clientId.includes("PASTE")) {
+        content.innerHTML = `<p class="err">⚠ Set your <code>clientId</code> in
+          <code>js/overlay-config.js</code> first, then reload.</p>`;
+        return;
+      }
+
+      content.innerHTML = `
+        <p>This lets the overlay read what you're currently playing. You'll go to
+           Spotify and come right back.</p>
+        <p style="font-size:13px;color:#8a8a98">Redirect URI (add this exactly in your
+           Spotify app settings): <code>${redirectUri}</code></p>
+        <button id="go">Connect with Spotify</button>`;
+      document.getElementById("go").onclick = authorize;
+    }
+
+    render();
+  </script>
+</body>
+</html>
