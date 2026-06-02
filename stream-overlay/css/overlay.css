@@ -118,4 +118,68 @@ html, body {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .np-bar { height: 3px; margin-top: 7px; background: rgba(255,255,255,.14); }
-.np-bar-fill { height: 100%; width: 0%; background: var(--accent); transition: width .5s linear; }
+.np-bar-fill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--accent), #ff6f7b, var(--accent));
+  background-size: 200% 100%;
+  transition: width .5s linear;
+  animation: bar-shimmer 2.1s linear infinite;
+}
+
+/* ======================================================================
+ *  AMBIENT ANIMATION  —  glow, traveling light, pulses. Pure CSS.
+ * ====================================================================== */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+/* a light that travels around each frame's edge */
+.scan {
+  position: absolute; inset: -3px; padding: 2px; pointer-events: none;
+  background: conic-gradient(from var(--ang),
+    transparent 0deg 290deg,
+    var(--accent) 326deg,
+    #ffffff 344deg,
+    var(--accent) 352deg,
+    transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  filter: drop-shadow(0 0 4px var(--accent));
+  animation: scan-spin 5s linear infinite;
+}
+.frame-keys .scan { animation-duration: 7s; animation-direction: reverse; } /* opposite way */
+@keyframes scan-spin { to { --ang: 360deg; } }
+
+/* corner brackets breathe, out of phase with each other */
+.frame::before { animation: bracket 2.6s ease-in-out infinite; }
+.frame::after  { animation: bracket 2.6s ease-in-out infinite 1.3s; }
+@keyframes bracket {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 8px var(--accent)); }
+}
+
+/* the ◆ diamonds pulse (different timings) */
+.frame-tab::before, .np-label::before { animation: gem 1.9s ease-in-out infinite; }
+.np-label::before { animation-delay: .6s; }
+.frame-keys .frame-tab::before { animation-delay: .95s; }
+@keyframes gem {
+  0%, 100% { opacity: .75; transform: scale(1);    filter: drop-shadow(0 0 0 transparent); }
+  50%      { opacity: 1;   transform: scale(1.25); filter: drop-shadow(0 0 6px var(--accent)); }
+}
+
+/* logo glow + gentle float */
+.brand-logo { animation: logo-pulse 3.2s ease-in-out infinite; }
+@keyframes logo-pulse {
+  0%, 100% { transform: translateY(0);    filter: drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
+  50%      { transform: translateY(-3px); filter: drop-shadow(0 2px 6px rgba(0,0,0,.6)) drop-shadow(0 0 11px var(--accent)); }
+}
+
+/* now-playing card breathing glow */
+.np-card.live { animation: card-glow 3.6s ease-in-out infinite; }
+@keyframes card-glow {
+  0%, 100% { box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+  50%      { box-shadow: 0 8px 30px rgba(0,0,0,.5), -5px 0 18px var(--accent); }
+}
+
+/* progress bar shimmer */
+@keyframes bar-shimmer { to { background-position: -200% 0; } }
