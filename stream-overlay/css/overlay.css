@@ -20,17 +20,26 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
-  width: 1920px; height: 1080px;
+  width: 2560px; height: 1440px;     /* Valorant 16:9 @ 1440p */
   background: transparent;            /* IMPORTANT for OBS */
   overflow: hidden;
   font-family: "Oswald", "Segoe UI", sans-serif;
 }
 
-/* ---- brand logo (top-left) ------------------------------------------ */
+/* ----------------------------------------------------------------------
+ * Layout is tuned around Valorant's default HUD (1440p, default scale):
+ *   minimap   = top-left      -> we stay below it on the left
+ *   score/timer = top-center  -> left clear
+ *   kill feed = top-right     -> we stay below it on the right
+ *   HP / abilities / ammo = bottom strip -> we stay above it
+ * If your HUD scale differs, nudge the `top` values below.
+ * -------------------------------------------------------------------- */
+
+/* ---- brand logo (right edge, below kill feed) ----------------------- */
 .brand-logo {
   position: absolute;
-  top: 30px; left: 36px;
-  width: 78px; height: 78px;
+  top: 470px; right: 44px;
+  width: 96px; height: 96px;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
 }
 
@@ -61,22 +70,23 @@ html, body {
   display: flex; align-items: center; gap: 8px;
   background: var(--black);
   color: var(--ink);
-  font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
-  padding: 5px 13px;
+  font-size: 15px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  padding: 6px 15px;
   border: 2px solid rgba(255,255,255,.14);
   border-bottom: none;
 }
 .frame-tab::before { content: "\25C6"; color: var(--accent); font-size: 9px; }
 
-.frame-cam  { right: 36px;  bottom: 36px; width: 440px; height: 248px; }
-.frame-keys { left: 36px;   bottom: 36px; width: 380px; height: 150px; }
+/* handcam + keyboard stacked on the LEFT edge, below the minimap */
+.frame-cam  { left: 44px; top: 470px; width: 480px; height: 270px; }
+.frame-keys { left: 44px; top: 772px; width: 480px; height: 200px; }
 
-/* ---- Spotify now-playing (top-right) -------------------------------- */
+/* ---- Spotify now-playing (right edge, under the logo) --------------- */
 .np-card {
   position: absolute;
-  top: 34px; right: 36px;
+  top: 600px; right: 44px;
   display: flex; align-items: center; gap: 13px;
-  width: 340px;
+  width: 400px;
   background: rgba(5,5,7,.82);
   border: 2px solid rgba(255,255,255,.12);
   border-left: 3px solid var(--accent);
@@ -88,7 +98,7 @@ html, body {
 .np-card.live { opacity: 1; transform: translateY(0); }
 
 .np-art {
-  width: 56px; height: 56px; flex-shrink: 0;
+  width: 64px; height: 64px; flex-shrink: 0;
   object-fit: cover; background: #15151a;
   border: 1px solid rgba(255,255,255,.1);
 }
@@ -100,7 +110,7 @@ html, body {
 }
 .np-label::before { content: "\25C6"; font-size: 8px; }
 .np-title {
-  font-size: 16px; font-weight: 700; color: var(--ink); text-transform: uppercase;
+  font-size: 18px; font-weight: 700; color: var(--ink); text-transform: uppercase;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .np-artist {
