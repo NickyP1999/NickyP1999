@@ -3,31 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alert Test Panel</title>
+  <title>Alert Test Panel — Cowboy Bebop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* The test page shows a dark backdrop + control buttons so you can
+    /* The test page shows a dark starfield + control buttons so you can
        preview alerts WITHOUT going live. The real overlay (index.html)
        stays transparent. */
-    body { background:
-      radial-gradient(circle at 50% 30%, #241b3d, #0b0913 70%); }
+    body {
+      background:
+        radial-gradient(1px 1px at 20% 30%, #fff8 50%, transparent),
+        radial-gradient(1px 1px at 70% 60%, #fff6 50%, transparent),
+        radial-gradient(1px 1px at 40% 80%, #fff5 50%, transparent),
+        radial-gradient(2px 2px at 85% 25%, #f3b41b88 50%, transparent),
+        radial-gradient(1px 1px at 55% 15%, #14a0a088 50%, transparent),
+        radial-gradient(circle at 50% 35%, #14110d, #050505 75%);
+    }
     .panel {
       position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-      background: rgba(15,12,28,.9); padding: 18px 22px; border-radius: 14px;
-      border: 1px solid #9146FF55; max-width: 92vw;
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      background: rgba(10,10,10,.92); padding: 18px 22px;
+      border: 1px solid #f3b41b55; border-top: 3px solid #f3b41b; max-width: 92vw;
     }
     .panel button {
-      background:#9146FF; color:#fff; border:0; padding:12px 18px;
-      border-radius:9px; font-weight:700; cursor:pointer; font-size:14px;
+      background:#111; color:#f3ead3; border:1px solid #f3b41b88;
+      padding:11px 18px; font-family:"Oswald",sans-serif; letter-spacing:1px;
+      text-transform:uppercase; font-weight:700; cursor:pointer; font-size:14px;
     }
-    .panel button:hover { filter: brightness(1.15); }
-    .hint { position: fixed; top: 18px; left: 0; right: 0; text-align:center;
-            color:#b9b9d0; font-family: system-ui, sans-serif; font-size:14px; }
+    .panel button:hover { background:#f3b41b; color:#0a0a0a; }
+    .hint { position: fixed; top: 20px; left: 0; right: 0; text-align:center;
+            color:#f3b41b; font-family:"Oswald",sans-serif; letter-spacing:3px;
+            text-transform:uppercase; font-size:14px; }
   </style>
 </head>
 <body class="hide-status">
-  <div class="hint">🔔 Test panel — click a button to preview that alert. The real overlay is <code>index.html</code>.</div>
+  <div class="hint">♪ 3 · 2 · 1 · Let's Jam — click a button to preview that alert</div>
   <div id="alert-root"></div>
 
   <div class="panel">

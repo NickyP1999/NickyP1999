@@ -60,47 +60,49 @@ window.ALERT_CONFIG = {
    *    {amount} = bits / months / dollars / raiders (where relevant)
    *    sound    = filename inside the /sounds folder, or "" for silent
    * ---------------------------------------------------------------------- */
+  // Cowboy Bebop palette:
+  //   saffron #f3b41b · blood red #c1272d · teal #14a0a0 · gold #d98a00
   alerts: {
     follow: {
-      title: "New Follower!",
-      message: "{name} just followed!",
-      color: "#9146FF",
+      title: "Welcome Aboard",
+      message: "{name} hopped onto the Bebop",
+      color: "#14a0a0",            // teal
       sound: "follow.mp3",
     },
     sub: {
-      title: "New Subscriber!",
-      message: "{name} just subscribed!",
-      color: "#1f8b4c",
+      title: "New Crew Member",
+      message: "{name} joined the crew",
+      color: "#f3b41b",            // saffron
       sound: "sub.mp3",
     },
     resub: {
-      title: "Resub!",
-      message: "{name} resubscribed for {amount} months!",
-      color: "#1f8b4c",
+      title: "Still Rollin'",
+      message: "{name} rode along {amount} months",
+      color: "#f3b41b",            // saffron
       sound: "sub.mp3",
     },
     giftSub: {
-      title: "Gifted Subs!",
-      message: "{name} gifted {amount} subs!",
-      color: "#e91e63",
+      title: "Bounty Shared",
+      message: "{name} gifted {amount} tickets aboard",
+      color: "#c1272d",            // blood red
       sound: "sub.mp3",
     },
     cheer: {
-      title: "Bits!",
-      message: "{name} cheered {amount} bits!",
-      color: "#9146FF",
+      title: "Woolongs!",
+      message: "{name} dropped {amount} bits",
+      color: "#d98a00",            // amber gold
       sound: "cheer.mp3",
     },
     raid: {
-      title: "Raid!",
-      message: "{name} is raiding with {amount} viewers!",
-      color: "#ff4500",
+      title: "Here Comes A New Jam",
+      message: "{name} jammed in with {amount} cowboys",
+      color: "#c1272d",            // blood red
       sound: "raid.mp3",
     },
     donation: {
-      title: "Donation!",
-      message: "{name} donated {amount}!",
-      color: "#ffb300",
+      title: "Woolongs Received",
+      message: "{name} tossed in {amount}",
+      color: "#d98a00",            // amber gold
       sound: "donation.mp3",
     },
   },

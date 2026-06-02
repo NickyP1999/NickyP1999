@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="'Oswald','Segoe UI',sans-serif">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#14110d"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </radialGradient>
+    <pattern id="scan" width="3" height="3" patternUnits="userSpaceOnUse">
+      <rect width="3" height="1" fill="#000" opacity="0.28"/>
+    </pattern>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.06"/></feComponentTransfer></filter>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <!-- starfield dots -->
+  <g fill="#fff" opacity="0.7">
+    <circle cx="120" cy="90" r="1.2"/><circle cx="300" cy="60" r="1"/><circle cx="700" cy="110" r="1.4"/>
+    <circle cx="840" cy="70" r="1"/><circle cx="500" cy="40" r="1.1"/><circle cx="210" cy="160" r="1"/>
+  </g>
+  <circle cx="815" cy="135" r="2" fill="#f3b41b"/><circle cx="430" cy="80" r="1.6" fill="#14a0a0"/>
+
+  <!-- ======== ALERT CARD (FOLLOW = teal) ======== -->
+  <g transform="translate(150,170)">
+    <!-- hard offset shadow -->
+    <rect x="14" y="14" width="660" height="210" fill="#000" opacity="0.55"/>
+    <!-- outer frame -->
+    <rect x="-4" y="-4" width="668" height="218" fill="#14a0a0"/>
+    <rect x="-2" y="-2" width="664" height="214" fill="#000"/>
+    <!-- panel -->
+    <rect x="0" y="0" width="660" height="210" fill="#0f0e0e"/>
+    <!-- accent bar -->
+    <rect x="0" y="0" width="10" height="210" fill="#14a0a0"/>
+    <!-- scanlines + grain -->
+    <rect x="0" y="0" width="660" height="210" fill="url(#scan)"/>
+    <rect x="0" y="0" width="660" height="210" filter="url(#grain)" opacity="0.5"/>
+
+    <text x="40" y="44" fill="#f3ead3" opacity="0.7" font-size="15" font-weight="700" letter-spacing="5">◆ SESSION</text>
+    <text x="40" y="104" fill="#14a0a0" font-family="'Anton','Oswald',sans-serif" font-size="58" letter-spacing="1">WELCOME ABOARD</text>
+    <text x="40" y="150" fill="#f3ead3" font-size="26" font-weight="500" letter-spacing="1">TYPHOON_SPIKE HOPPED ONTO THE BEBOP</text>
+    <text x="650" y="198" fill="#14a0a0" opacity="0.65" font-size="13" font-weight="700" letter-spacing="3" text-anchor="end">SEE YOU, SPACE COWBOY…</text>
+  </g>
+
+  <text x="480" y="500" fill="#f3b41b" opacity="0.85" font-size="16" letter-spacing="4" text-anchor="middle" font-weight="700">♪  3 · 2 · 1 · LET'S JAM</text>
+</svg>

@@ -1,6 +1,10 @@
-# OBS Twitch Alerts
+# OBS Twitch Alerts — 🤠 Cowboy Bebop Theme
 
-A free, self-hosted alert overlay for **OBS Studio**. Shows animated, sound‑enabled
+A free, self-hosted alert overlay for **OBS Studio**, styled after the
+**Cowboy Bebop** title cards: jazz-noir black panels, saffron / blood-red / teal
+accents, film grain + scanlines, condensed display type, and a
+*"See you, space cowboy…"* footer. Messages use Bebop flavor (woolongs, the crew,
+jamming in) — all editable in `js/config.js`. Shows animated, sound‑enabled
 alerts for **follows, subscriptions, resubs, gifted subs, bits/cheers, raids,
 and donations** — no Streamlabs/StreamElements overlay account required (StreamElements
 is used only as an optional source for donation/tip events).

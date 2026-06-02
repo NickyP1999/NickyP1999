@@ -1,6 +1,17 @@
 /* =========================================================================
- *  Overlay styling. Background is transparent so it sits over your scene.
+ *  COWBOY BEBOP THEME  —  retro jazz-noir title cards.
+ *  Background stays transparent so it sits over your OBS scene.
+ *  Palette: near-black, saffron, blood red, teal, bone-cream.
  * ========================================================================= */
+
+:root {
+  --bb-black:  #0a0a0a;
+  --bb-panel:  #111010;
+  --bb-yellow: #f3b41b;
+  --bb-red:    #c1272d;
+  --bb-teal:   #14a0a0;
+  --bb-cream:  #f3ead3;
+}
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -9,7 +20,7 @@ html, body {
   height: 100%;
   background: transparent;          /* IMPORTANT for OBS browser source */
   overflow: hidden;
-  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-family: "Oswald", "Bebas Neue", "Segoe UI", sans-serif;
 }
 
 #alert-root {
@@ -18,58 +29,117 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 40px;
+  gap: 18px;
+  padding: 44px;
 }
 #alert-root.pos-top    { top: 0; }
 #alert-root.pos-center { top: 50%; transform: translateY(-50%); }
 #alert-root.pos-bottom { bottom: 0; }
 
+/* ---- the title card -------------------------------------------------- */
 .alert-card {
-  --accent: #9146FF;
-  min-width: 420px;
-  max-width: 80vw;
-  text-align: center;
-  padding: 22px 36px;
-  border-radius: 16px;
-  background: rgba(20, 18, 31, 0.92);
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 24px var(--accent), 0 10px 40px rgba(0, 0, 0, 0.5);
-  color: #fff;
+  --accent: var(--bb-yellow);
+  position: relative;
+  min-width: 480px;
+  max-width: 82vw;
+  padding: 24px 40px 30px;
+  background:
+    linear-gradient(180deg, rgba(17,16,16,.97), rgba(7,7,7,.97));
+  color: var(--bb-cream);
+  border-left: 10px solid var(--accent);
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 4px var(--accent),
+    14px 14px 0 0 rgba(0,0,0,.55);     /* hard offset "printed" shadow */
+  overflow: hidden;
 
   opacity: 0;
-  transform: translateY(-30px) scale(0.92);
-  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.3,1.3);
+  transform: translateX(-90px) skewX(-9deg);
+  transition:
+    opacity .35s ease,
+    transform .5s cubic-bezier(.16,1.1,.3,1);
 }
-.alert-card.show { opacity: 1; transform: translateY(0) scale(1); }
-.alert-card.hide { opacity: 0; transform: translateY(-20px) scale(0.95); transition: all .55s ease; }
+.alert-card.show { opacity: 1; transform: translateX(0) skewX(0); }
+.alert-card.hide {
+  opacity: 0;
+  transform: translateX(60px) skewX(7deg);
+  transition: opacity .5s ease, transform .5s ease;
+}
 
-.alert-title {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: .5px;
+/* film grain + scanlines layered inside the card */
+.alert-card::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      0deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px),       /* scanlines */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: .55;
+}
+
+/* corner tick mark, like an old title-card frame */
+.alert-card::after {
+  content: "SEE YOU, SPACE COWBOY\2026";
+  position: absolute;
+  right: 14px; bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  font-weight: 700;
   color: var(--accent);
-  text-shadow: 0 0 12px var(--accent);
+  opacity: .65;
+}
+
+/* small "session" kicker above the title */
+.alert-title {
+  position: relative;
+  font-family: "Anton", "Oswald", sans-serif;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 3px 3px 0 #000, 0 0 18px rgba(0,0,0,.6);
+  margin-bottom: 10px;
+}
+.alert-title::before {
+  content: "\25C6  SESSION";   /* ◆ SESSION kicker */
+  display: block;
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  letter-spacing: 5px;
+  font-weight: 700;
+  color: var(--bb-cream);
+  opacity: .7;
+  text-shadow: none;
   margin-bottom: 6px;
 }
 
 .alert-message {
-  font-size: 22px;
+  position: relative;
+  font-size: 24px;
   font-weight: 500;
-  line-height: 1.35;
+  letter-spacing: .5px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--bb-cream);
+  padding-right: 90px;   /* keep clear of the "space cowboy" footer */
 }
 
-/* connection status badge (hidden in OBS by default; visible in test page) */
+/* ---- connection status badge ---------------------------------------- */
 .status {
   position: fixed;
   bottom: 10px;
   left: 10px;
-  font-size: 13px;
+  font-size: 12px;
   padding: 4px 10px;
-  border-radius: 6px;
-  font-family: monospace;
-  opacity: 0.85;
+  border-radius: 0;
+  font-family: "Oswald", monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid #000;
 }
-.status.ok  { background: #1f8b4c; color: #fff; }
-.status.bad { background: #b3261e; color: #fff; }
+.status.ok  { background: var(--bb-teal); color: #00211f; }
+.status.bad { background: var(--bb-red);  color: #fff; }
 .hide-status .status { display: none; }
