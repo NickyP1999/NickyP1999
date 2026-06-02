@@ -4,6 +4,23 @@
  *  Palette: near-black, saffron, blood red, teal, bone-cream.
  * ========================================================================= */
 
+/* Self-hosted fonts so the overlay renders correctly even on networks that
+   block Google Fonts (and inside OBS's browser). */
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/anton.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../fonts/oswald.woff2") format("woff2");
+}
+
 :root {
   --bb-black:  #0a0a0a;
   --bb-panel:  #111010;
