@@ -114,7 +114,7 @@ window.ALERT_CONFIG = {
       title: "donation",
       message: "{name} · {amount}",
       color: "#d98a00",            // amber gold
-      gif: "https://media.giphy.com/media/Te9ImVwQGht1S/giphy.gif", // "See you space cowboy"
+      gif: "https://media.giphy.com/media/gQbVzXQQbGO7C/giphy.gif", // Spike
       sound: "donation.mp3",
     },
   },

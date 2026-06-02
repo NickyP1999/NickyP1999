@@ -15,7 +15,7 @@ Current default clips:
     giftSub  -> Edward dancing
     cheer    -> Spike at the bar
     raid     -> Spike smirking
-    donation -> "See you, space cowboy..."
+    donation -> Spike
 
 Find more: https://giphy.com/search/cowboy-bebop  or  https://tenor.com/search/cowboy-bebop-gifs
 
