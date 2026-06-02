@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connect to Twitch</title>
+  <style>
+    body { font-family: "Inter", "Segoe UI", system-ui, sans-serif; background:#0e0c16; color:#eee;
+           display:flex; min-height:100vh; align-items:center; justify-content:center; margin:0; }
+    .box { max-width:560px; padding:36px; background:#17132a; border:1px solid #9146FF44;
+           border-radius:16px; box-shadow:0 10px 40px #0008; }
+    h1 { color:#9146FF; margin-top:0; }
+    p { line-height:1.5; color:#cfcfe0; }
+    button { background:#9146FF; color:#fff; border:0; padding:14px 24px; font-size:16px;
+             border-radius:10px; cursor:pointer; font-weight:700; }
+    button:hover { background:#7d2ff0; }
+    code { background:#0008; padding:2px 6px; border-radius:5px; }
+    .ok { color:#4ade80; font-weight:700; }
+    .err { color:#f87171; }
+    .token { word-break:break-all; background:#0008; padding:12px; border-radius:8px;
+             font-family:monospace; font-size:13px; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Connect to Twitch</h1>
+    <div id="content">Loading…</div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script>
+    const cfg = window.ALERT_CONFIG.twitch;
+    const SCOPES = [
+      "moderator:read:followers",
+      "channel:read:subscriptions",
+      "bits:read",
+    ].join(" ");
+
+    const content = document.getElementById("content");
+    // redirect_uri must EXACTLY match what you registered in your Twitch app.
+    const redirectUri = window.location.origin + window.location.pathname;
+
+    function authorize() {
+      const url = "https://id.twitch.tv/oauth2/authorize"
+        + "?client_id=" + encodeURIComponent(cfg.clientId)
+        + "&redirect_uri=" + encodeURIComponent(redirectUri)
+        + "&response_type=token"
+        + "&scope=" + encodeURIComponent(SCOPES);
+      window.location = url;
+    }
+
+    function render() {
+      // After Twitch redirects back, the token is in the URL fragment (#access_token=…)
+      const hash = new URLSearchParams(window.location.hash.slice(1));
+      const token = hash.get("access_token");
+
+      if (token) {
+        localStorage.setItem("twitch_token", token);
+        content.innerHTML = `
+          <p class="ok">✓ Connected! Your token has been saved in this browser.</p>
+          <p>You can close this tab. Your <code>index.html</code> overlay will now
+             receive live events. If you use this overlay in OBS, run this
+             <b>connect.html</b> once inside OBS too (right-click the source →
+             <b>Interact</b>), so OBS stores its own copy of the token.</p>
+          <div class="token">${token.slice(0, 8)}…(hidden)</div>
+        `;
+        // clean the token out of the address bar
+        history.replaceState(null, "", redirectUri);
+        return;
+      }
+
+      if (!cfg.clientId || cfg.clientId.includes("PASTE_")) {
+        content.innerHTML = `<p class="err">⚠ Set your <code>clientId</code> in
+          <code>js/config.js</code> first, then reload this page.</p>`;
+        return;
+      }
+
+      content.innerHTML = `
+        <p>This authorizes the overlay to read your followers, subs, and bits.
+           You'll be sent to Twitch and brought right back.</p>
+        <p style="font-size:13px;color:#9a9ab0">Redirect URI in use (must be registered
+           in your Twitch app): <code>${redirectUri}</code></p>
+        <button id="go">Connect with Twitch</button>
+      `;
+      document.getElementById("go").onclick = authorize;
+    }
+
+    render();
+  </script>
+</body>
+</html>

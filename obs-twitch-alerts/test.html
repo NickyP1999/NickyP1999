@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alert Test Panel</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* The test page shows a dark backdrop + control buttons so you can
+       preview alerts WITHOUT going live. The real overlay (index.html)
+       stays transparent. */
+    body { background:
+      radial-gradient(circle at 50% 30%, #241b3d, #0b0913 70%); }
+    .panel {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      background: rgba(15,12,28,.9); padding: 18px 22px; border-radius: 14px;
+      border: 1px solid #9146FF55; max-width: 92vw;
+    }
+    .panel button {
+      background:#9146FF; color:#fff; border:0; padding:12px 18px;
+      border-radius:9px; font-weight:700; cursor:pointer; font-size:14px;
+    }
+    .panel button:hover { filter: brightness(1.15); }
+    .hint { position: fixed; top: 18px; left: 0; right: 0; text-align:center;
+            color:#b9b9d0; font-family: system-ui, sans-serif; font-size:14px; }
+  </style>
+</head>
+<body class="hide-status">
+  <div class="hint">🔔 Test panel — click a button to preview that alert. The real overlay is <code>index.html</code>.</div>
+  <div id="alert-root"></div>
+
+  <div class="panel">
+    <button data-fire="follow">Follow</button>
+    <button data-fire="sub">Sub</button>
+    <button data-fire="resub">Resub</button>
+    <button data-fire="giftSub">Gift Subs</button>
+    <button data-fire="cheer">Bits</button>
+    <button data-fire="raid">Raid</button>
+    <button data-fire="donation">Donation</button>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/alerts.js"></script>
+  <script>
+    // sample data for each alert type
+    const samples = {
+      follow:   { name: "CoolViewer42" },
+      sub:      { name: "GamerGirl_99" },
+      resub:    { name: "LoyalFan",    amount: 6 },
+      giftSub:  { name: "GenerousGus", amount: 5 },
+      cheer:    { name: "BitLord",     amount: 500 },
+      raid:     { name: "BigStreamer", amount: 128 },
+      donation: { name: "KindStranger",amount: "$10.00" },
+    };
+    document.querySelectorAll("[data-fire]").forEach(btn => {
+      btn.onclick = () => window.Alerts.fire(btn.dataset.fire, samples[btn.dataset.fire]);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OBS Twitch Alerts</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<!-- Add class "hide-status" to <body> once you're live if you don't want the
+     little connection badge to ever show. -->
+<body>
+  <div id="alert-root"></div>
+  <div id="status" class="status bad">Twitch: starting…</div>
+
+  <!-- socket.io is only needed for StreamElements donations -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/twitch.js"></script>
+  <script src="js/streamelements.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
