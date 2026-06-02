@@ -2,9 +2,16 @@
 
 A free, self-hosted alert overlay for **OBS Studio**, styled after the
 **Cowboy Bebop** title cards: jazz-noir black panels, saffron / blood-red / teal
-accents, film grain + scanlines, condensed display type, and a
-*"See you, space cowboy…"* footer. Messages use Bebop flavor (woolongs, the crew,
-jamming in) — all editable in `js/config.js`. Shows animated, sound‑enabled
+accents, film grain + scanlines, condensed display type, a per-alert **GIF from
+the show**, and a *"See you, space cowboy…"* footer. Messages use Bebop flavor
+(woolongs, the crew, jamming in) — all editable in `js/config.js`.
+
+> **GIFs:** each alert shows a Cowboy Bebop clip (Spike, the crew, Edward, etc.).
+> By default these are **hotlinked from Giphy** — no copyrighted footage is stored
+> in this repo. To use your own clips, drop files in `gifs/` and set
+> `gif: "gifs/yourfile.gif"` in `js/config.js`. See `gifs/README.txt`.
+> *(Cowboy Bebop © Sunrise / Bandai Namco; short clips in a personal overlay are
+> common but the footage isn't yours — use at your discretion.)* Shows animated, sound‑enabled
 alerts for **follows, subscriptions, resubs, gifted subs, bits/cheers, raids,
 and donations** — no Streamlabs/StreamElements overlay account required (StreamElements
 is used only as an optional source for donation/tip events).

@@ -62,47 +62,59 @@ window.ALERT_CONFIG = {
    * ---------------------------------------------------------------------- */
   // Cowboy Bebop palette:
   //   saffron #f3b41b · blood red #c1272d · teal #14a0a0 · gold #d98a00
+  //
+  // gif: a Cowboy Bebop clip shown on the card. These default to hotlinked
+  //   Giphy URLs (no copyrighted footage stored in this repo). To use your
+  //   own files instead, drop them in the /gifs folder and set e.g.
+  //   gif: "gifs/follow.gif". Set gif: "" for no image.
   alerts: {
     follow: {
       title: "Welcome Aboard",
       message: "{name} hopped onto the Bebop",
       color: "#14a0a0",            // teal
+      gif: "https://media.giphy.com/media/4ilFRqgbzbx4c/giphy.gif", // Spike + lighter
       sound: "follow.mp3",
     },
     sub: {
       title: "New Crew Member",
       message: "{name} joined the crew",
       color: "#f3b41b",            // saffron
+      gif: "https://media.giphy.com/media/4MxLhxhOqCqYw/giphy.gif", // crew + ship
       sound: "sub.mp3",
     },
     resub: {
       title: "Still Rollin'",
       message: "{name} rode along {amount} months",
       color: "#f3b41b",            // saffron
+      gif: "https://media.giphy.com/media/QgwoSMw1mbpADGy5Gt/giphy.gif", // "whatever happens, happens"
       sound: "sub.mp3",
     },
     giftSub: {
       title: "Bounty Shared",
       message: "{name} gifted {amount} tickets aboard",
       color: "#c1272d",            // blood red
+      gif: "https://media.giphy.com/media/udhngZK2IFTc4/giphy.gif", // Edward dancing
       sound: "sub.mp3",
     },
     cheer: {
       title: "Woolongs!",
       message: "{name} dropped {amount} bits",
       color: "#d98a00",            // amber gold
+      gif: "https://media.giphy.com/media/5gK1hvwoutPnG/giphy.gif", // Spike at the bar
       sound: "cheer.mp3",
     },
     raid: {
       title: "Here Comes A New Jam",
       message: "{name} jammed in with {amount} cowboys",
       color: "#c1272d",            // blood red
+      gif: "https://media.giphy.com/media/b21HcSrrBu8pi/giphy.gif", // Spike smirk
       sound: "raid.mp3",
     },
     donation: {
       title: "Woolongs Received",
       message: "{name} tossed in {amount}",
       color: "#d98a00",            // amber gold
+      gif: "https://media.giphy.com/media/Te9ImVwQGht1S/giphy.gif", // "See you space cowboy"
       sound: "donation.mp3",
     },
   },

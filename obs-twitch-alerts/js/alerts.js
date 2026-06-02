@@ -52,9 +52,15 @@
     const el = document.createElement("div");
     el.className = "alert-card";
     el.style.setProperty("--accent", style.color || "#9146FF");
+    const gifHtml = style.gif
+      ? `<img class="alert-gif" src="${escapeHtml(style.gif)}" alt="" />`
+      : "";
     el.innerHTML = `
-      <div class="alert-title">${escapeHtml(style.title)}</div>
-      <div class="alert-message">${escapeHtml(fmt(style.message, data))}</div>
+      ${gifHtml}
+      <div class="alert-text">
+        <div class="alert-title">${escapeHtml(style.title)}</div>
+        <div class="alert-message">${escapeHtml(fmt(style.message, data))}</div>
+      </div>
     `;
 
     root.appendChild(el);

@@ -57,9 +57,12 @@ html, body {
 .alert-card {
   --accent: var(--bb-yellow);
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 26px;
   min-width: 480px;
   max-width: 82vw;
-  padding: 24px 40px 30px;
+  padding: 22px 40px 26px;
   background:
     linear-gradient(180deg, rgba(17,16,16,.97), rgba(7,7,7,.97));
   color: var(--bb-cream);
@@ -107,6 +110,21 @@ html, body {
   color: var(--accent);
   opacity: .65;
 }
+
+/* the Cowboy Bebop clip */
+.alert-gif {
+  position: relative;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 0 2px #000, 0 0 16px rgba(0,0,0,.6);
+  background: #000;
+}
+
+.alert-text { position: relative; z-index: 1; flex: 1; }
 
 /* small "session" kicker above the title */
 .alert-title {
