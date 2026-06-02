@@ -1,10 +1,9 @@
 # OBS Twitch Alerts — 🤠 Cowboy Bebop Theme
 
-A free, self-hosted alert overlay for **OBS Studio**, styled after the
-**Cowboy Bebop** title cards: jazz-noir black panels, saffron / blood-red / teal
-accents, film grain + scanlines, condensed display type, a per-alert **GIF from
-the show**, and a *"See you, space cowboy…"* footer. Messages use Bebop flavor
-(woolongs, the crew, jamming in) — all editable in `js/config.js`.
+A free, self-hosted alert overlay for **OBS Studio** with a clean jazz-noir look:
+black panels, saffron / blood-red / teal accents, film grain + scanlines,
+condensed display type, and a per-alert **GIF**. Alert text is deliberately
+minimal (`new follower`, `new sub`, `raid`, …) — all editable in `js/config.js`.
 
 > **GIFs:** each alert shows a Cowboy Bebop clip (Spike, the crew, Edward, etc.).
 > By default these are **hotlinked from Giphy** — no copyrighted footage is stored
