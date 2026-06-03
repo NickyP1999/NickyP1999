@@ -10,11 +10,11 @@ window.ALERT_CONFIG = {
    * ---------------------------------------------------------------------- */
   twitch: {
     // Your channel login name, lowercase (e.g. "nickyp1999")
-    channel: "your_channel_name",
+    channel: "nickyp1999",
 
     // Client ID from your Twitch application.
     // Create one at https://dev.twitch.tv/console/apps  (see README step 1)
-    clientId: "PASTE_YOUR_CLIENT_ID_HERE",
+    clientId: "80z5nzjjjpbdswxcl7ts15fcpihuvd",
 
     // Leave this blank. You'll generate the token once via connect.html
     // and it gets saved automatically in the browser. (See README step 3.)
