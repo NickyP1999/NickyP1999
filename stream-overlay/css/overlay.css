@@ -41,6 +41,7 @@ html, body {
   top: 470px; right: 44px;
   width: 96px; height: 96px;
   filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+  display: none; /* removed: redundant with existing branding */
 }
 
 /* ---- generic frame (handcam / keyboard) ----------------------------- */
@@ -79,7 +80,7 @@ html, body {
 
 /* handcam + keyboard stacked on the LEFT edge, below the minimap */
 .frame-cam  { left: 44px; top: 470px; width: 480px; height: 270px; display: none; } /* hidden: no webcam */
-.frame-keys { left: 44px; top: 772px; width: 480px; height: 200px; }
+.frame-keys { left: 44px; top: 772px; width: 480px; height: 200px; display: none; } /* hidden: keys shown via color-keyed capture instead */
 
 /* ---- Spotify now-playing (right edge, under the logo) --------------- */
 .np-card {
