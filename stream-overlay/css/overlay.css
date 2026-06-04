@@ -78,7 +78,7 @@ html, body {
 .frame-tab::before { content: "\25C6"; color: var(--accent); font-size: 9px; }
 
 /* handcam + keyboard stacked on the LEFT edge, below the minimap */
-.frame-cam  { left: 44px; top: 470px; width: 480px; height: 270px; }
+.frame-cam  { left: 44px; top: 470px; width: 480px; height: 270px; display: none; } /* hidden: no webcam */
 .frame-keys { left: 44px; top: 772px; width: 480px; height: 200px; }
 
 /* ---- Spotify now-playing (right edge, under the logo) --------------- */
