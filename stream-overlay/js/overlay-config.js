@@ -14,7 +14,7 @@ window.OVERLAY_CONFIG = {
 
   // Spotify "now playing" widget (optional)
   spotify: {
-    enabled: true,
+    enabled: false,
     // Create an app at https://developer.spotify.com/dashboard and paste its
     // Client ID here. Add your overlay's spotify-connect.html URL as a Redirect
     // URI in the app settings. (See README.)
